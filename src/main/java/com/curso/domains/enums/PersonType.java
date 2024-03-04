@@ -2,7 +2,7 @@ package com.curso.domains.enums;
 
 public enum PersonType {
  
-    ADMIN(0,"ROLE_ADMINS"), USERS(1,"ROLE_USERS"),TECHNICIAN(2,"ROLE_TECHNICIAN");
+    ADMIN(0,"ROLE_ADMINS"), USERS(1,"ROLE_USERS"), TECHNICIAN(2,"ROLE_TECHNICIAN");
 
     private Integer id;
     private String personType;
