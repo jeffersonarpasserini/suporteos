@@ -5,17 +5,40 @@ import java.util.UUID;
 
 import com.curso.domains.enums.OrderPriority;
 import com.curso.domains.enums.OrderStatus;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "serviceorder")
 public class ServiceOrder {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+    
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate starDate = LocalDate.now();
+    
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate endDate;
     private String titleOS;
     private String description;
     private OrderPriority orderPriority;
     private OrderStatus orderStatus;
+    
+    @ManyToOne //relacao muitos para um
+    @JoinColumn(name = "id") //refere-se ao id de technician
     private Technician technician;
+
+    @ManyToOne //relacao muitos para um
+    @JoinColumn(name = "id") //refere-se ao id de users
     private Users user;
 
     public ServiceOrder() {
