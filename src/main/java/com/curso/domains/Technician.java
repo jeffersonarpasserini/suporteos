@@ -4,15 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class Users extends Person {
+public class Technician extends Person {
 
     private List<ServiceOrder> serviceOrders = new ArrayList<>();
 
-    public Users(UUID id, String firstName, String lastName, String cpf, String email, String password) {
+    public Technician(UUID id, String firstName, String lastName, String cpf, String email, String password) {
         super(id, firstName, lastName, cpf, email, password);
     }
 
-    public Users() {
+    public Technician() {
         super();
     }
 
@@ -24,4 +24,5 @@ public class Users extends Person {
         this.serviceOrders = serviceOrders;
     }
 
+    
 }
