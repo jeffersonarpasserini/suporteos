@@ -9,7 +9,7 @@ import com.curso.domains.enums.OrderStatus;
 public class ServiceOrder {
 
     private UUID id;
-    private LocalDate starDate = new LocalDate().now();
+    private LocalDate starDate = LocalDate.now();
     private LocalDate endDate;
     private String titleOS;
     private String description;
