@@ -31,7 +31,7 @@ public class DBService {
             "89308024000","jefferson.passerini@gmail.com","123");
         
         Users user01 = new Users(null, "Joao", "Alberto", 
-        "02569095044", "joao.alberto@gmail.com", "123");
+        "02569095099", "joao.alberto@gmail.com", "123");
 
         Users user02 = new Users(null, "Jose", "Felipe", 
         "02569095044", "jose.felipe@gmail.com", "123");
