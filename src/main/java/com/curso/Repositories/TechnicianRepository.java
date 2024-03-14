@@ -1,4 +1,4 @@
-package com.curso.Repositories;
+package com.curso.repositories;
 
 import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;

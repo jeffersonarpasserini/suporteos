@@ -1,24 +1,26 @@
-package com.curso.Services;
+package com.curso.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.curso.Repositories.ServiceOrderRepository;
-import com.curso.Repositories.TechnicianRepository;
-import com.curso.Repositories.UsersRepository;
 import com.curso.domains.ServiceOrder;
 import com.curso.domains.Technician;
 import com.curso.domains.Users;
 import com.curso.domains.enums.OrderPriority;
 import com.curso.domains.enums.OrderStatus;
+import com.curso.repositories.ServiceOrderRepository;
+import com.curso.repositories.TechnicianRepository;
+import com.curso.repositories.UsersRepository;
 
 @Service
 public class DBService {
 
     @Autowired
     private TechnicianRepository techRepo;
+
     @Autowired
     private UsersRepository userRepo;
+    
     @Autowired
     private ServiceOrderRepository osRepo; 
 
@@ -43,5 +45,4 @@ public class DBService {
         osRepo.save(os01);
         
     }
-
 }
