@@ -2,7 +2,7 @@ package com.curso.domains.enums;
 
 public enum OrderStatus{
 
-   LOW(0,"LOW"),MEDIUM(1,"MEDIUM"),HIGH(2,"HIGH");
+   OPEN(0,"OPEN"),ATTENDANCE(1,"ATTENDANCE"),CLOSE(2,"CLOSE");
 
    private Integer id;
    private String orderStatus;
