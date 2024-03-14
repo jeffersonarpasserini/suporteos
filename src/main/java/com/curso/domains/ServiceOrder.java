@@ -34,11 +34,11 @@ public class ServiceOrder {
     private OrderStatus orderStatus;
     
     @ManyToOne //relacao muitos para um
-    @JoinColumn(name = "id") //refere-se ao id de technician
+    @JoinColumn(name = "idtechnician") //refere-se ao id de technician
     private Technician technician;
 
     @ManyToOne //relacao muitos para um
-    @JoinColumn(name = "id") //refere-se ao id de users
+    @JoinColumn(name = "iduser") //refere-se ao id de users
     private Users user;
 
     public ServiceOrder() {
