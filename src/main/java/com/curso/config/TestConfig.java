@@ -18,7 +18,6 @@ public class TestConfig {
     @PostConstruct
     public void initDB()
     {
-        System.out.println("--------------********** entrou em dbservice initdb **************------------------------");
         this.dbService.initDB();
     }
 
