@@ -1,4 +1,4 @@
-package com.curso.services;
+package com.curso.Services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,9 +8,9 @@ import com.curso.domains.Technician;
 import com.curso.domains.Users;
 import com.curso.domains.enums.OrderPriority;
 import com.curso.domains.enums.OrderStatus;
-import com.curso.repositories.ServiceOrderRepository;
-import com.curso.repositories.TechnicianRepository;
-import com.curso.repositories.UsersRepository;
+import com.curso.Repositories.ServiceOrderRepository;
+import com.curso.Repositories.TechnicianRepository;
+import com.curso.Repositories.UsersRepository;
 
 @Service
 public class DBService {
