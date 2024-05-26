@@ -28,4 +28,8 @@ public class TechnicianService {
         return obj.orElse(null);
     }
 
+    public Technician findbyCpf(String cpf){
+        Optional<Technician> obj = techRepo.findByCpf(cpf);
+        return obj.orElse(null);
+    }
 }

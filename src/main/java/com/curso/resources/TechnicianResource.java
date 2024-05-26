@@ -32,4 +32,9 @@ public class TechnicianResource {
         return ResponseEntity.ok().body(new TechnicianDTO(obj));
     }
 
+    @GetMapping(value = "/cpf/{cpf}") //exemplo http://localhost:8080/technician/cpf/11122233344
+    public ResponseEntity<TechnicianDTO> findByCpf(@PathVariable String cpf){
+        Technician obj = this.techService.findbyCpf(cpf);
+        return ResponseEntity.ok().body(new TechnicianDTO(obj));
+    }
 }
