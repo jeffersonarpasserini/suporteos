@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.curso.Repositories.TechnicianRepository;
+import com.curso.Services.exceptions.ObjectNotFoundException;
 import com.curso.domains.Technician;
 import com.curso.domains.dtos.TechnicianDTO;
 
@@ -25,11 +26,11 @@ public class TechnicianService {
 
     public Technician findbyId(UUID id){
         Optional<Technician> obj = techRepo.findById(id);
-        return obj.orElse(null);
+        return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id:"+id));
     }
 
     public Technician findbyCpf(String cpf){
         Optional<Technician> obj = techRepo.findByCpf(cpf);
-        return obj.orElse(null);
+        return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! CPF:"+cpf));
     }
 }
