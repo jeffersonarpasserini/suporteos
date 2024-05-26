@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.UUID;
 
 import com.curso.domains.enums.PersonType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
@@ -13,6 +14,7 @@ import jakarta.persistence.Table;
 @Table(name = "technician")
 public class Technician extends Person {
 
+    @JsonIgnore
     @OneToMany(mappedBy = "technician") // technician é o nome do atributo em ServiceOrder
     private List<ServiceOrder> serviceOrders = new ArrayList<>();
 
