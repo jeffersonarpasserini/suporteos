@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import com.curso.domains.dtos.TechnicianDTO;
 import com.curso.domains.dtos.UsersDTO;
 import com.curso.domains.enums.PersonType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
