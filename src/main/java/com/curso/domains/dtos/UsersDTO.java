@@ -6,6 +6,8 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import org.hibernate.validator.constraints.br.CPF;
+
 import com.curso.domains.Users;
 import com.curso.domains.enums.PersonType;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -26,7 +28,7 @@ public class UsersDTO {
     protected String lastName;
 
     @NotNull(message = "O campo CPF não pode ser nulo")
-    @NotBlank(message = "O campo CPF não pode ser vazio")
+    @CPF
     protected String cpf;
 
     @NotNull(message = "O campo e-mail não pode ser nulo")
