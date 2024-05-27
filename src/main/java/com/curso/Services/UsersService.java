@@ -11,7 +11,9 @@ import org.springframework.stereotype.Service;
 import com.curso.Repositories.UsersRepository;
 import com.curso.Services.exceptions.DataIntegrityViolationException;
 import com.curso.Services.exceptions.ObjectNotFoundException;
+import com.curso.domains.Technician;
 import com.curso.domains.Users;
+import com.curso.domains.dtos.TechnicianDTO;
 import com.curso.domains.dtos.UsersDTO;
 
 @Service
@@ -45,6 +47,14 @@ public class UsersService {
         ValidaPorCPFeEmail(objDto);
         Users newObj = new Users(objDto);
         return usersRepo.save(newObj);
+    }
+
+    public Users update(UUID id, UsersDTO objDto){
+        objDto.setId(id);
+        Users oldObj = findbyId(id);
+        ValidaPorCPFeEmail(objDto);
+        oldObj = new Users(objDto);
+        return usersRepo.save(oldObj);
     }
 
     private void ValidaPorCPFeEmail(UsersDTO objDto) {

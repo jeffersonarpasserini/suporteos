@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,6 +17,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.curso.Services.UsersService;
 import com.curso.domains.Users;
+import com.curso.domains.dtos.TechnicianDTO;
 import com.curso.domains.dtos.UsersDTO;
 
 import jakarta.validation.Valid;
@@ -55,6 +57,12 @@ public class UsersResource {
         Users newObj = usersService.create(objDto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newObj.getId()).toUri();
         return ResponseEntity.created(uri).build();
+    }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<UsersDTO> update(@PathVariable UUID id, @Valid @RequestBody UsersDTO objDto){
+        Users Obj = usersService.update(id, objDto);
+        return ResponseEntity.ok().body(new UsersDTO(Obj));
     }
 
 }
