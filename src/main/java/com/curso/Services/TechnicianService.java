@@ -58,7 +58,7 @@ public class TechnicianService {
     public void delete(UUID id){
         Technician obj = findbyId(id);
         if (obj.getServiceOrders().size()>0){
-            throw new DataIntegrityViolationException("Técnico não pode ser delete pois possui ordens de serviço!");
+            throw new DataIntegrityViolationException("Técnico não pode ser deletado pois possui ordens de serviço!");
         }
         techRepo.deleteById(id);
     }

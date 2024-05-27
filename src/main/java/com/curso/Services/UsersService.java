@@ -59,7 +59,7 @@ public class UsersService {
     public void delete(UUID id){
         Users obj = findbyId(id);
         if (obj.getServiceOrders().size()>0){
-            throw new DataIntegrityViolationException("Técnico não pode ser delete pois possui ordens de serviço!");
+            throw new DataIntegrityViolationException("Usuário não pode ser deletado pois possui ordens de serviço!");
         }
         usersRepo.deleteById(id);
     }
