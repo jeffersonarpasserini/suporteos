@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.curso.Repositories.TechnicianRepository;
+import com.curso.Services.exceptions.DataIntegrityViolationException;
 import com.curso.Services.exceptions.ObjectNotFoundException;
 import com.curso.domains.Technician;
 import com.curso.domains.dtos.TechnicianDTO;
@@ -32,5 +33,30 @@ public class TechnicianService {
     public Technician findbyCpf(String cpf){
         Optional<Technician> obj = techRepo.findByCpf(cpf);
         return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! CPF:"+cpf));
+    }
+
+    public Technician findbyEmail(String email){
+        Optional<Technician> obj = techRepo.findByEmail(email);
+        return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Email:"+email));
+    }
+
+    public Technician create(TechnicianDTO objDto){
+        objDto.setId(null);
+        ValidaPorCPFeEmail(objDto);
+        Technician newObj = new Technician(objDto);
+        return techRepo.save(newObj);
+    }
+
+    private void ValidaPorCPFeEmail(TechnicianDTO objDto) {
+       Optional<Technician> obj = techRepo.findByCpf(objDto.getCpf());
+       if(obj.isPresent() && obj.get().getId() != objDto.getId()){
+            throw new DataIntegrityViolationException("CPF já cadastrado no sistema");
+       }
+
+       Optional<Technician> obj2 = techRepo.findByEmail(objDto.getEmail());
+       if(obj2.isPresent() && obj2.get().getId() != objDto.getId()){
+            throw new DataIntegrityViolationException("Email já cadastrado no sistema");
+       }
+
     }
 }

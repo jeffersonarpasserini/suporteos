@@ -11,4 +11,5 @@ import com.curso.domains.Users;
 public interface UsersRepository extends JpaRepository<Users, UUID> {
 
     Optional<Users> findByCpf(String cpf);
+    Optional<Users> findByEmail(String email);
 }

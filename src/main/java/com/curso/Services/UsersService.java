@@ -9,8 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.curso.Repositories.UsersRepository;
+import com.curso.Services.exceptions.DataIntegrityViolationException;
 import com.curso.Services.exceptions.ObjectNotFoundException;
+import com.curso.domains.Technician;
 import com.curso.domains.Users;
+import com.curso.domains.dtos.TechnicianDTO;
 import com.curso.domains.dtos.UsersDTO;
 
 @Service
@@ -32,6 +35,31 @@ public class UsersService {
     public Users findbyCpf(String cpf){
         Optional<Users> obj = usersRepo.findByCpf(cpf);
         return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! CPF:"+cpf));
+    }
+
+    public Users findbyEmail(String email){
+        Optional<Users> obj = usersRepo.findByEmail(email);
+        return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Email:"+email));
+    }
+
+    public Users create(UsersDTO objDto){
+        objDto.setId(null);
+        ValidaPorCPFeEmail(objDto);
+        Users newObj = new Users(objDto);
+        return usersRepo.save(newObj);
+    }
+
+    private void ValidaPorCPFeEmail(UsersDTO objDto) {
+       Optional<Users> obj = usersRepo.findByCpf(objDto.getCpf());
+       if(obj.isPresent() && obj.get().getId() != objDto.getId()){
+            throw new DataIntegrityViolationException("CPF já cadastrado no sistema");
+       }
+
+       obj = usersRepo.findByEmail(objDto.getEmail());
+       if(obj.isPresent() && obj.get().getId() != objDto.getId()){
+            throw new DataIntegrityViolationException("Email já cadastrado no sistema");
+       }
+
     }
     
 }

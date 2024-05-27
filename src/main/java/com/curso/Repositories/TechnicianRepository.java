@@ -11,5 +11,6 @@ import com.curso.domains.Technician;
 public interface TechnicianRepository extends JpaRepository<Technician, UUID> {
 
     Optional<Technician> findByCpf(String cpf);
+    Optional<Technician> findByEmail(String email);
 
 }
