@@ -18,6 +18,8 @@ import com.curso.Services.UsersService;
 import com.curso.domains.Users;
 import com.curso.domains.dtos.UsersDTO;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping(value = "/users")
 public class UsersResource {
@@ -49,7 +51,7 @@ public class UsersResource {
     }
 
     @PostMapping
-    public ResponseEntity<UsersDTO> create(@RequestBody UsersDTO objDto){
+    public ResponseEntity<UsersDTO> create(@Valid @RequestBody UsersDTO objDto){
         Users newObj = usersService.create(objDto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newObj.getId()).toUri();
         return ResponseEntity.created(uri).build();

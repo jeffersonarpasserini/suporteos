@@ -18,6 +18,8 @@ import com.curso.Services.TechnicianService;
 import com.curso.domains.Technician;
 import com.curso.domains.dtos.TechnicianDTO;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping(value = "/technician")
 public class TechnicianResource {
@@ -49,7 +51,7 @@ public class TechnicianResource {
     }
 
     @PostMapping
-    public ResponseEntity<TechnicianDTO> create(@RequestBody TechnicianDTO objDto){
+    public ResponseEntity<TechnicianDTO> create(@Valid @RequestBody TechnicianDTO objDto){
         Technician newObj = techService.create(objDto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newObj.getId()).toUri();
         return ResponseEntity.created(uri).build();
