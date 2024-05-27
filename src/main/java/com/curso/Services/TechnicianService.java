@@ -55,6 +55,14 @@ public class TechnicianService {
         return techRepo.save(oldObj);
     }
 
+    public void delete(UUID id){
+        Technician obj = findbyId(id);
+        if (obj.getServiceOrders().size()>0){
+            throw new DataIntegrityViolationException("Técnico não pode ser delete pois possui ordens de serviço!");
+        }
+        techRepo.deleteById(id);
+    }
+
     private void ValidaPorCPFeEmail(TechnicianDTO objDto) {
        Optional<Technician> obj = techRepo.findByCpf(objDto.getCpf());
        if(obj.isPresent() && obj.get().getId() != objDto.getId()){

@@ -13,7 +13,6 @@ import com.curso.Services.exceptions.DataIntegrityViolationException;
 import com.curso.Services.exceptions.ObjectNotFoundException;
 import com.curso.domains.Technician;
 import com.curso.domains.Users;
-import com.curso.domains.dtos.TechnicianDTO;
 import com.curso.domains.dtos.UsersDTO;
 
 @Service
@@ -55,6 +54,14 @@ public class UsersService {
         ValidaPorCPFeEmail(objDto);
         oldObj = new Users(objDto);
         return usersRepo.save(oldObj);
+    }
+
+    public void delete(UUID id){
+        Users obj = findbyId(id);
+        if (obj.getServiceOrders().size()>0){
+            throw new DataIntegrityViolationException("Técnico não pode ser delete pois possui ordens de serviço!");
+        }
+        usersRepo.deleteById(id);
     }
 
     private void ValidaPorCPFeEmail(UsersDTO objDto) {
