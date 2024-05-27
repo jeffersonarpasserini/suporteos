@@ -47,6 +47,14 @@ public class TechnicianService {
         return techRepo.save(newObj);
     }
 
+    public Technician update(UUID id, TechnicianDTO objDto){
+        objDto.setId(id);
+        Technician oldObj = findbyId(id);
+        ValidaPorCPFeEmail(objDto);
+        oldObj = new Technician(objDto);
+        return techRepo.save(oldObj);
+    }
+
     private void ValidaPorCPFeEmail(TechnicianDTO objDto) {
        Optional<Technician> obj = techRepo.findByCpf(objDto.getCpf());
        if(obj.isPresent() && obj.get().getId() != objDto.getId()){
