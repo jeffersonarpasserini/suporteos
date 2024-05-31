@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @EntityScan(basePackages = {"com.curso.domains","com.curso.domains.enums"})
 @ComponentScan(basePackages = "com.curso")
-@EnableJpaRepositories(basePackages = "com.curso.repositories")
+@EnableJpaRepositories(basePackages = "com.curso.Repositories")
 @SpringBootApplication
 public class SuporteosApplication {
 
