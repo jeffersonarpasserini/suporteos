@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import com.curso.Repositories.UsersRepository;
 import com.curso.Services.exceptions.DataIntegrityViolationException;
 import com.curso.Services.exceptions.ObjectNotFoundException;
-import com.curso.domains.Technician;
 import com.curso.domains.Users;
 import com.curso.domains.dtos.UsersDTO;
 

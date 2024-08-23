@@ -18,7 +18,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.curso.Services.UsersService;
 import com.curso.domains.Users;
-import com.curso.domains.dtos.TechnicianDTO;
 import com.curso.domains.dtos.UsersDTO;
 
 import jakarta.validation.Valid;
