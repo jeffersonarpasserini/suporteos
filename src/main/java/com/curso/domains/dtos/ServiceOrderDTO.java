@@ -6,6 +6,8 @@ import java.util.UUID;
 import com.curso.domains.ServiceOrder;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import jakarta.validation.constraints.NotNull;
+
 public class ServiceOrderDTO {
 
     private UUID id;
@@ -15,11 +17,17 @@ public class ServiceOrderDTO {
     
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate endDate;
+    @NotNull(message = "O campo Titulo é requerido")
     private String titleOS;
+    @NotNull(message = "O campo descrição é requerido")
     private String description;
+    @NotNull(message = "O campo Prioridade é requerido")
     private Integer orderPriority;
+    @NotNull(message = "O campo Status é requerido")
     private Integer orderStatus;
+    @NotNull(message = "O campo Técnico é requerido")
     private UUID technician;
+    @NotNull(message = "O campo Usuário é requerido")
     private UUID user;
     private String nameTechnician;
     private String nameUser;
@@ -33,7 +41,7 @@ public class ServiceOrderDTO {
         this.titleOS = serviceOrder.getTitleOS();
         this.description = serviceOrder.getDescription();
         this.orderPriority = serviceOrder.getOrderPriority().getId();
-        this.orderStatus = serviceOrder.getOrderPriority().getId();
+        this.orderStatus = serviceOrder.getOrderStatus().getId();
         this.technician = serviceOrder.getTechnician().getId();
         this.user = serviceOrder.getUser().getId();
         this.nameTechnician = serviceOrder.getTechnician().getFirstName() + " " + serviceOrder.getTechnician().getLastName();
