@@ -48,7 +48,7 @@ public class ServiceOrderService {
         }
 
         if(obj.getOrderStatus().equals(2)){
-            obj.setEndDate(LocalDate.now());
+            os.setEndDate(LocalDate.now());
         }
 
         os.setTechnician(tech);
