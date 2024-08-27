@@ -20,38 +20,46 @@ import com.curso.Services.UsersService;
 import com.curso.domains.Users;
 import com.curso.domains.dtos.UsersDTO;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping(value = "/users")
+@Tag(name = "Users", description = "API para gerenciamento de usuários")
 public class UsersResource {
 
     @Autowired
     private UsersService usersService;
 
+    @Operation(summary = "Listar todos os usuários", description = "Retorna uma lista com todos os usuários.")
     @GetMapping //exemplo http://localhost:8080/users
     public ResponseEntity<List<UsersDTO>> findAll(){
         return ResponseEntity.ok().body(usersService.findAll());
     }
 
+    @Operation(summary = "Buscar usuário por ID", description = "Retorna um usuário com base no ID fornecido.")
     @GetMapping(value = "/{id}") //exemplo http://localhost:8080/users/1
     public ResponseEntity<UsersDTO> findById(@PathVariable UUID id){
         Users obj = this.usersService.findbyId(id);
         return ResponseEntity.ok().body(new UsersDTO(obj));
     }
 
+    @Operation(summary = "Buscar usuário por CPF", description = "Retorna um usuário com base no CPF fornecido.")
     @GetMapping(value = "/cpf/{cpf}") //exemplo http://localhost:8080/users/cpf/11122233344
     public ResponseEntity<UsersDTO> findByCpf(@PathVariable String cpf){
         Users obj = this.usersService.findbyCpf(cpf);
         return ResponseEntity.ok().body(new UsersDTO(obj));
     }
 
+    @Operation(summary = "Buscar usuário por e-mail", description = "Retorna um usuário com base no e-mail fornecido.")
     @GetMapping(value = "/email/{email}") //exemplo http://localhost:8080/technician/email/email@email.com
     public ResponseEntity<UsersDTO> findByEmail(@PathVariable String email){
         Users obj = this.usersService.findbyEmail(email);
         return ResponseEntity.ok().body(new UsersDTO(obj));
     }
 
+    @Operation(summary = "Criar um novo usuário", description = "Cria um novo usuário com base nos dados fornecidos.")
     @PostMapping
     public ResponseEntity<UsersDTO> create(@Valid @RequestBody UsersDTO objDto){
         Users newObj = usersService.create(objDto);
@@ -59,12 +67,14 @@ public class UsersResource {
         return ResponseEntity.created(uri).build();
     }
 
+    @Operation(summary = "Atualizar usuário", description = "Atualiza os dados de um usuário existente com base no ID fornecido.")
     @PutMapping(value = "/{id}")
     public ResponseEntity<UsersDTO> update(@PathVariable UUID id, @Valid @RequestBody UsersDTO objDto){
         Users Obj = usersService.update(id, objDto);
         return ResponseEntity.ok().body(new UsersDTO(Obj));
     }
 
+    @Operation(summary = "Deletar usuário", description = "Remove um usuário existente com base no ID fornecido.")
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<UsersDTO> delete(@PathVariable UUID id){
         usersService.delete(id);

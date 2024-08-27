@@ -19,27 +19,34 @@ import com.curso.Services.ServiceOrderService;
 import com.curso.domains.ServiceOrder;
 import com.curso.domains.dtos.ServiceOrderDTO;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping(value = "/serviceorder")
+@Tag(name = "ServiceOrder", description = "API para gerenciamento de ordem de serviço")
 public class ServiceOrderResource {
 
     @Autowired
     private ServiceOrderService osService;
     
 
+    @Operation(summary = "Buscar OS por ID", description = "Retorna uma OS com base no ID fornecido.")
     @GetMapping(value = "/{id}") //exemplo http://localhost:8080/serviceorder/1
     public ResponseEntity<ServiceOrderDTO> findById(@PathVariable UUID id){
         ServiceOrder obj = this.osService.findbyId(id);
         return ResponseEntity.ok().body(new ServiceOrderDTO(obj));
     }
 
+    @Operation(summary = "Listar todas as OS", description = "Retorna uma lista com todas as OS.")
     @GetMapping //exemplo http://localhost:8080/serviceorder
     public ResponseEntity<List<ServiceOrderDTO>> findAll(){
         return ResponseEntity.ok().body(osService.findAll());
     }
 
+
+    @Operation(summary = "Criar uma nova OS", description = "Cria uma nova OS com base nos dados fornecidos.")
     @PostMapping
     public ResponseEntity<ServiceOrderDTO> create(@Valid @RequestBody ServiceOrderDTO objDto){
         ServiceOrder newObj = osService.create(objDto);
@@ -47,6 +54,7 @@ public class ServiceOrderResource {
         return ResponseEntity.created(uri).build();
     }
 
+    @Operation(summary = "Atualizar OS", description = "Atualiza os dados de uma OS existente com base no ID fornecido.")
     @PutMapping(value = "/{id}")
     public ResponseEntity<ServiceOrderDTO> update(@PathVariable UUID id, @Valid @RequestBody ServiceOrderDTO objDto){
         ServiceOrder Obj = osService.update(id, objDto);
