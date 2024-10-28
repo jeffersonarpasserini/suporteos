@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.curso.Repositories.TechnicianRepository;
@@ -22,7 +23,7 @@ public class TechnicianService {
     private TechnicianRepository techRepo;
 
     @Autowired
-    private BCryptPasswordEncoder encoder;
+    private PasswordEncoder encoder;
 
     public List<TechnicianDTO> findAll(){
         //retorna uma lista de TechnicianDTO

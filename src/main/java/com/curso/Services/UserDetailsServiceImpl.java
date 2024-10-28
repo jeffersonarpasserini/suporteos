@@ -2,9 +2,9 @@ package com.curso.Services;
 
 import com.curso.Repositories.PersonRepository;
 import com.curso.Repositories.UsersRepository;
+import com.curso.domains.Person;
 import com.curso.domains.Users;
 import com.curso.security.UserSS;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -15,16 +15,22 @@ import java.util.Optional;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    @Autowired
-    private UsersRepository usersRepo;
+    //private final UsersRepository userRepository;
+    private final PersonRepository personRepository;
+
+    //public UserDetailsServiceImpl(UsersRepository userRepository) {
+    public UserDetailsServiceImpl(PersonRepository personRepository) {
+        //this.userRepository = userRepository;
+        this.personRepository = personRepository;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<Users> user = usersRepo.findByEmail(username);
-        if(user.isPresent()) {
-            return new UserSS(user.get().getId(), user.get().getEmail(), user.get().getPassword(), user.get().getPersonType());
+        //Optional<Users> user = userRepository.findByEmail(username);
+        Optional<Person> user = personRepository.findByEmail(username);
+        if (user.isEmpty()) {
+            throw new UsernameNotFoundException("User not found: " + username);
         }
-        throw new UsernameNotFoundException(username);
+        return new UserSS(user.orElse(null));
     }
-
 }

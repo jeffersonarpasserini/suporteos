@@ -2,6 +2,7 @@ package com.curso.Services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.curso.domains.ServiceOrder;
@@ -26,7 +27,7 @@ public class DBService {
     private ServiceOrderRepository osRepo;
 
     @Autowired
-    private BCryptPasswordEncoder encoder;
+    private PasswordEncoder encoder;
 
     public void initDB()
     {

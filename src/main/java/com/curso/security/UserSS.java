@@ -1,27 +1,26 @@
 package com.curso.security;
 
-import com.curso.domains.enums.PersonType;
+import com.curso.domains.Person;
+import com.curso.domains.Users;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class UserSS implements UserDetails {
-    private UUID id;
-    private String email;
-    private String senha;
+
+    private String username;
+    private String password;
     private Collection<? extends GrantedAuthority> authorities;
 
-    public UserSS(UUID id, String email, String senha, Set<PersonType> personTypes) {
-        this.id = id;
-        this.email = email;
-        this.senha = senha;
-        this.authorities = personTypes.stream()
+    //public UserSS(Users user)
+    public UserSS(Person user) {
+        this.username = user.getEmail();
+        this.password = user.getPassword();
+        this.authorities = user.getPersonType().stream()
                 .map(x -> new SimpleGrantedAuthority(x.getPersonType()))
                 .collect(Collectors.toSet());
     }
@@ -31,18 +30,14 @@ public class UserSS implements UserDetails {
         return authorities;
     }
 
-    public UUID getId() {
-        return id;
-    }
-
     @Override
     public String getPassword() {
-        return senha;
+        return password;
     }
 
     @Override
     public String getUsername() {
-        return email;
+        return username;
     }
 
     @Override
