@@ -1,13 +1,11 @@
 package com.curso.security;
 
 import com.curso.domains.Person;
-import com.curso.domains.Users;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class UserSS implements UserDetails {

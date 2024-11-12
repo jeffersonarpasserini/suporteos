@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,12 +34,14 @@ public class TechnicianResource {
     private TechnicianService techService;
 
     @Operation(summary = "Listar todos os tecnicos", description = "Retorna uma lista com todos os tecnicos.")
+    @PreAuthorize("hasRole('TECHNICIAN') or hasRole('ADMIN')")
     @GetMapping //exemplo http://localhost:8080/technician
     public ResponseEntity<List<TechnicianDTO>> findAll(){
         return ResponseEntity.ok().body(techService.findAll());
     }
 
     @Operation(summary = "Buscar tecnico por ID", description = "Retorna um tecnico com base no ID fornecido.")
+    @PreAuthorize("hasRole('TECHNICIAN') or hasRole('ADMIN')")
     @GetMapping(value = "/{id}") //exemplo http://localhost:8080/technician/1
     public ResponseEntity<TechnicianDTO> findById(@PathVariable UUID id){
         Technician obj = this.techService.findbyId(id);
@@ -46,6 +49,7 @@ public class TechnicianResource {
     }
 
     @Operation(summary = "Buscar tecnico por CPF", description = "Retorna um tecnico com base no CPF fornecido.")
+    @PreAuthorize("hasRole('TECHNICIAN') or hasRole('ADMIN')")
     @GetMapping(value = "/cpf/{cpf}") //exemplo http://localhost:8080/technician/cpf/11122233344
     public ResponseEntity<TechnicianDTO> findByCpf(@PathVariable String cpf){
         Technician obj = this.techService.findbyCpf(cpf);
@@ -53,6 +57,7 @@ public class TechnicianResource {
     }
 
     @Operation(summary = "Buscar tecnico por e-mail", description = "Retorna um tecnico com base no e-mail fornecido.")
+    @PreAuthorize("hasRole('TECHNICIAN') or hasRole('ADMIN')")
     @GetMapping(value = "/email/{email}") //exemplo http://localhost:8080/technician/email/email@email.com
     public ResponseEntity<TechnicianDTO> findByEmail(@PathVariable String email){
         Technician obj = this.techService.findbyEmail(email);
@@ -60,6 +65,7 @@ public class TechnicianResource {
     }
 
     @Operation(summary = "Criar um novo tecnico", description = "Cria um novo tecnico com base nos dados fornecidos.")
+    @PreAuthorize("hasRole('TECHNICIAN') or hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<TechnicianDTO> create(@Valid @RequestBody TechnicianDTO objDto){
         Technician newObj = techService.create(objDto);
@@ -68,6 +74,7 @@ public class TechnicianResource {
     }
 
     @Operation(summary = "Atualizar tecnico", description = "Atualiza os dados de um tecnico existente com base no ID fornecido.")
+    @PreAuthorize("hasRole('TECHNICIAN') or hasRole('ADMIN')")
     @PutMapping(value = "/{id}")
     public ResponseEntity<TechnicianDTO> update(@PathVariable UUID id, @Valid @RequestBody TechnicianDTO objDto){
         Technician Obj = techService.update(id, objDto);
@@ -75,6 +82,7 @@ public class TechnicianResource {
     }
 
     @Operation(summary = "Deletar tecnico", description = "Remove um tecnico existente com base no ID fornecido.")
+    @PreAuthorize("hasRole('TECHNICIAN') or hasRole('ADMIN')")
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<TechnicianDTO> delete(@PathVariable UUID id){
         techService.delete(id);

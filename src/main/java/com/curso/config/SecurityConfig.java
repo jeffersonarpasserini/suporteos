@@ -2,12 +2,14 @@ package com.curso.config;
 
 import com.curso.Services.UserDetailsServiceImpl;
 import com.curso.security.JWTAuthenticationFilter;
+import com.curso.security.JWTAuthorizationFilter;
 import com.curso.security.JWTUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -24,6 +26,7 @@ import java.util.List;
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
 
     private static final String[] PUBLIC_URLS = {"/h2-console/**","/auth/**","/login"};
@@ -40,6 +43,9 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
+        AuthenticationManager authManager = authenticationManager(http);
+
         if (Arrays.asList(env.getActiveProfiles()).contains("test")) {
             http.headers(headers -> headers.frameOptions(frameOptions -> frameOptions.disable()));
         }
@@ -54,7 +60,9 @@ public class SecurityConfig {
 
         http.addFilterBefore(new JWTAuthenticationFilter(jwtUtils, userDetailsService),
                 UsernamePasswordAuthenticationFilter.class);
-
+        // Adiciona o JWTAuthorizationFilter
+        http.addFilterBefore(new JWTAuthorizationFilter(authManager, jwtUtils, userDetailsService),
+                UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

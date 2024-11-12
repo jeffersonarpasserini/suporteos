@@ -6,6 +6,7 @@ import java.net.URI;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,6 +34,7 @@ public class ServiceOrderResource {
     
 
     @Operation(summary = "Buscar OS por ID", description = "Retorna uma OS com base no ID fornecido.")
+    @PreAuthorize("hasRole('TECHNICIAN') or hasRole('ADMIN')")
     @GetMapping(value = "/{id}") //exemplo http://localhost:8080/serviceorder/1
     public ResponseEntity<ServiceOrderDTO> findById(@PathVariable UUID id){
         ServiceOrder obj = this.osService.findbyId(id);
@@ -40,6 +42,7 @@ public class ServiceOrderResource {
     }
 
     @Operation(summary = "Listar todas as OS", description = "Retorna uma lista com todas as OS.")
+    @PreAuthorize("hasRole('TECHNICIAN') or hasRole('ADMIN')")
     @GetMapping //exemplo http://localhost:8080/serviceorder
     public ResponseEntity<List<ServiceOrderDTO>> findAll(){
         return ResponseEntity.ok().body(osService.findAll());
@@ -47,6 +50,7 @@ public class ServiceOrderResource {
 
 
     @Operation(summary = "Criar uma nova OS", description = "Cria uma nova OS com base nos dados fornecidos.")
+    @PreAuthorize("hasRole('TECHNICIAN') or hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<ServiceOrderDTO> create(@Valid @RequestBody ServiceOrderDTO objDto){
         ServiceOrder newObj = osService.create(objDto);
@@ -55,6 +59,7 @@ public class ServiceOrderResource {
     }
 
     @Operation(summary = "Atualizar OS", description = "Atualiza os dados de uma OS existente com base no ID fornecido.")
+    @PreAuthorize("hasRole('TECHNICIAN') or hasRole('ADMIN')")
     @PutMapping(value = "/{id}")
     public ResponseEntity<ServiceOrderDTO> update(@PathVariable UUID id, @Valid @RequestBody ServiceOrderDTO objDto){
         ServiceOrder Obj = osService.update(id, objDto);
